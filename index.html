@@ -3,258 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Healthy Pregnancy Course</title>
+<title>Healthy Pregnancy Course - Full Version</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 :root {
-  --pink:#FF6B9D; --pink-light:#FFB3CE; --pink-dark:#E0456E;
-  --teal:#00C9A7; --teal-light:#B2EFE6; --teal-dark:#009E85;
-  --purple:#9B59B6; --purple-light:#D7BDE2;
-  --amber:#F39C12; --amber-light:#FAD7A0;
-  --bg:#FFF8FC; --card:#FFFFFF;
-  --text:#2C3E50; --text-muted:#7F8C8D;
-  --border:#F0E0EA;
-  --shadow:0 8px 32px rgba(255,107,157,0.13);
-  --radius:20px; --radius-sm:12px;
+  --pink:#FF6B9D; --pink-dark:#E0456E; --teal:#00C9A7; --amber:#F39C12;
+  --bg:#FFF8FC; --text:#2C3E50; --border:#F0E0EA; --shadow:0 8px 32px rgba(0,0,0,0.05);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#FFF0F7 0%,#F0FFF8 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px 10px;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f5;display:flex;justify-content:center;align-items:center;min-height:100vh;}
 
-/* ── PHONE SHELL ── */
-.phone{width:390px;height:844px;background:var(--bg);border-radius:44px;box-shadow:0 30px 80px rgba(0,0,0,0.18),0 0 0 10px #1a1a2e,0 0 0 13px #2d2d3a;overflow:hidden;position:relative;display:flex;flex-direction:column;}
-.phone-notch{width:130px;height:30px;background:#1a1a2e;border-radius:0 0 20px 20px;margin:0 auto;position:relative;z-index:10;flex-shrink:0;}
+/* DEVICE */
+.phone{width:390px;height:844px;background:var(--bg);border-radius:44px;box-shadow:0 0 0 12px #2d2d3a;overflow:hidden;position:relative;display:flex;flex-direction:column;}
+.notch{width:130px;height:30px;background:#2d2d3a;border-radius:0 0 20px 20px;margin:0 auto;z-index:10;}
 
-/* ── TOP BAR ── */
-.top-bar{display:flex;align-items:center;gap:10px;padding:14px 20px 10px;background:white;border-bottom:2px solid var(--border);z-index:100;}
-.btn-back{width:36px;height:36px;background:var(--border);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text);}
-.progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px;}
-.progress-label{font-size:11px;color:var(--text-muted);font-weight:700;}
-.progress-bar{height:8px;background:#F0E0EA;border-radius:99px;overflow:hidden;}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--pink),var(--teal));transition:width .5s ease;}
+/* HEADER */
+.top-bar{display:flex;align-items:center;gap:12px;padding:15px 20px;background:white;border-bottom:1px solid var(--border);}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.p-bar-container{flex:1;height:8px;background:#eee;border-radius:10px;overflow:hidden;}
+.p-bar-fill{height:100%;width:0%;background:var(--pink);transition:0.3s;}
 
-/* ── SLIDE CONTAINER ── */
-.slide-container{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;scroll-behavior:smooth;}
-.slide-container::-webkit-scrollbar {display: none;}
-.slide{display:none;flex-direction:column;animation:slideIn .35s cubic-bezier(.4,0,.2,1);flex:1;}
+/* CONTAINER */
+.slides-wrapper{flex:1;overflow-y:auto;position:relative;}
+.slide{display:none;padding:20px;flex-direction:column;height:100%;animation:fadeIn 0.4s;}
 .slide.active{display:flex;}
-@keyframes slideIn{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-.content{padding:20px 22px;display:flex;flex-direction:column;gap:14px;flex:1;}
-.slide-title{font-family:'Fredoka One',sans-serif;font-size:22px;color:var(--text);line-height:1.2;}
-.slide-text{font-size:14px;line-height:1.75;color:var(--text);}
+/* UI ELEMENTS */
+.card{background:white;padding:20px;border-radius:20px;margin-bottom:15px;box-shadow:var(--shadow);cursor:pointer;display:flex;align-items:center;gap:15px;border:2px solid transparent;transition:0.2s;}
+.card:hover{border-color:var(--pink);}
+.btn-main{width:100%;padding:18px;background:var(--pink);color:white;border:none;border-radius:15px;font-weight:800;font-size:16px;cursor:pointer;margin-top:auto;}
+.quiz-box{background:#fff;padding:20px;border-radius:20px;border:2px solid var(--border);margin:15px 0;}
+.opt-btn{width:100%;padding:15px;margin:8px 0;border:2px solid var(--border);border-radius:12px;background:white;font-weight:700;cursor:pointer;}
+.feedback{padding:15px;border-radius:12px;margin-top:10px;display:none;font-size:14px;font-weight:600;}
 
-/* ── BUTTONS ── */
-.btn-next{width:100%;padding:16px;background:linear-gradient(135deg,var(--pink) 0%,var(--pink-dark) 100%);color:white;border:none;border-radius:12px;font-weight:800;cursor:pointer;margin-top:auto;margin-bottom:20px;transition: transform 0.1s;}
-.btn-next:active {transform: scale(0.98);}
-
-/* ── HOME CARDS ── */
-.home-card{background:white;border-radius:20px;padding:20px;margin:10px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s;border:2px solid transparent;}
-.home-card:hover{transform:translateY(-3px);border-color:var(--pink-light);}
-.icon-box{width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:28px;}
-
-/* ── QUIZ UI ── */
-.scenario-box{background:linear-gradient(135deg,#FFF7E6,#FFF0F7);border:2px solid var(--amber-light);border-radius:12px;padding:16px;font-size:14px;line-height:1.6;}
-.tf-row{display:flex;gap:10px;margin:15px 0;}
-.tf-btn{flex:1;padding:18px;border-radius:12px;border:2px solid var(--border);background:white;font-weight:800;cursor:pointer;transition:all 0.2s;font-family:'Nunito';}
-.tf-btn:hover {border-color: var(--pink);}
-.feedback-box{padding:15px;border-radius:12px;display:none;margin-top:10px;font-size:14px;line-height:1.5;animation: fadeIn 0.3s;}
-@keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
-
-/* ── INFO BOXES ── */
-.info-card{background:white;border-radius:var(--radius-sm);padding:14px 16px;border-left:4px solid var(--teal);box-shadow:var(--shadow);font-size:13px;margin-top:10px;}
+h1, h2{font-family:'Fredoka One',sans-serif;color:var(--text);}
 </style>
 </head>
 <body>
 
 <div class="phone">
-  <div class="phone-notch"></div>
-
-  <div class="top-bar">
-    <button class="btn-back" onclick="goToSlide(0)">🏠</button>
-    <div class="progress-wrap">
-      <div class="progress-label" id="progressLabel">Healthy Pregnancy</div>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    </div>
-    <div style="font-size:18px;">❤️❤️❤️</div>
-  </div>
-
-  <div class="slide-container">
-    
-    <div class="slide active" id="slide-0">
-      <div style="text-align:center; padding:30px 20px;">
-        <div style="font-size:60px;">🤰</div>
-        <h1 style="font-family:'Fredoka One'; margin-top:10px;">Course Menu</h1>
-        <p style="color:var(--text-muted);">Interactive Learning</p>
-      </div>
-
-      <div class="home-card" onclick="goToSlide(1)">
-        <div class="icon-box" style="background:#FFE0EF;">🧬</div>
-        <div><strong>Chapter 1</strong><br><small>Whole System Pregnancy</small></div>
-      </div>
-
-      <div class="home-card" onclick="goToSlide(4)">
-        <div class="icon-box" style="background:#E8FFF8;">💪</div>
-        <div><strong>Chapter 2</strong><br><small>Challenges & Trimesters</small></div>
-      </div>
-
-      <div class="home-card" onclick="goToSlide(7)">
-        <div class="icon-box" style="background:#FFF7E6;">💡</div>
-        <div><strong>Chapter 3</strong><br><small>Debunking Misconceptions</small></div>
-      </div>
+    <div class="notch"></div>
+    <div class="top-bar">
+        <button class="back-btn" onclick="showSlide(0)">🏠</button>
+        <div class="p-bar-container"><div class="p-bar-fill" id="progress"></div></div>
     </div>
 
-    <div class="slide" id="slide-1">
-      <div style="background:linear-gradient(160deg,#FFE0EF 0%,#FFF); height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px;">
-        <h2 class="slide-title">Chapter 1:<br>Systemic View</h2>
-        <div style="font-size:70px; margin:20px;">🧬</div>
-        <p class="slide-text">Learn how emotional and social health directly impacts biological pregnancy.</p>
-        <button class="btn-next" onclick="goToSlide(2)">Let's Begin →</button>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-2">
-      <div class="content">
-        <h2 class="slide-title">True or False?</h2>
-        <div class="scenario-box">
-          Biological changes are the <strong>only</strong> factor that determines how a pregnancy feels.
+    <div class="slides-wrapper">
+        <div class="slide active" id="s0">
+            <h1 style="text-align:center;margin:30px 0;">Pregnancy Course</h1>
+            <div class="card" onclick="showSlide(1)"><span style="font-size:30px;">🧬</span><div><b>Chapter 1</b><br><small>The Whole System</small></div></div>
+            <div class="card" onclick="showSlide(4)"><span style="font-size:30px;">💪</span><div><b>Chapter 2</b><br><small>Daily Challenges</small></div></div>
+            <div class="card" onclick="showSlide(7)"><span style="font-size:30px;">💡</span><div><b>Chapter 3</b><br><small>Myth Busting</small></div></div>
         </div>
-        <div class="tf-row">
-          <button class="tf-btn" onclick="checkAnswer(false, 2, 'Chapter 1')">True</button>
-          <button class="tf-btn" onclick="checkAnswer(true, 2, 'Chapter 1')">False</button>
-        </div>
-        <div id="fb-2" class="feedback-box"></div>
-        <button id="btn-2" class="btn-next" style="display:none;" onclick="goToSlide(3)">Continue →</button>
-      </div>
-    </div>
 
-    <div class="slide" id="slide-3">
-      <div class="content">
-        <h2 class="slide-title">Key Insight</h2>
-        <div class="info-card">
-          Social support and stress management can actually <strong>reduce</strong> the intensity of physical symptoms like nausea or fatigue.
+        <div class="slide" id="s1">
+            <h2>Chapter 1: Systems</h2>
+            <p style="margin:20px 0;">Pregnancy is a biological, emotional, and social event combined.</p>
+            <div style="font-size:80px;text-align:center;">🤰</div>
+            <button class="btn-main" onclick="showSlide(2)">Take Quiz</button>
         </div>
-        <button class="btn-next" onclick="goToSlide(0)">Back to Menu</button>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-4">
-      <div style="background:linear-gradient(160deg,#E8FFF8 0%,#FFF); height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px;">
-        <h2 class="slide-title">Chapter 2:<br>The Challenges</h2>
-        <div style="font-size:70px; margin:20px;">💪</div>
-        <p class="slide-text">Navigating physical hurdles and emotional shifts in each trimester.</p>
-        <button class="btn-next" onclick="goToSlide(5)">Start Chapter 2 →</button>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-5">
-      <div class="content">
-        <h2 class="slide-title">True or False?</h2>
-        <div class="scenario-box">
-          Feeling "emotional" or having mood swings is <strong>uncommon</strong> in the first trimester.
+        <div class="slide" id="s2">
+            <h2>Quiz 1</h2>
+            <div class="quiz-box">Is pregnancy the same for everyone?</div>
+            <button class="opt-btn" onclick="answer(false, 2)">Yes, it's identical</button>
+            <button class="opt-btn" onclick="answer(true, 2)">No, it's unique</button>
+            <div id="f2" class="feedback"></div>
+            <button class="btn-main" id="n2" style="display:none;" onclick="showSlide(3)">Next Lesson</button>
         </div>
-        <div class="tf-row">
-          <button class="tf-btn" onclick="checkAnswer(false, 5, 'Chapter 2')">True</button>
-          <button class="tf-btn" onclick="checkAnswer(true, 5, 'Chapter 2')">False</button>
+        <div class="slide" id="s3">
+            <h2>Lesson Learned</h2>
+            <p>Your social environment changes your physical symptoms!</p>
+            <button class="btn-main" onclick="showSlide(0)">Back to Menu</button>
         </div>
-        <div id="fb-5" class="feedback-box"></div>
-        <button id="btn-5" class="btn-next" style="display:none;" onclick="goToSlide(6)">Continue →</button>
-      </div>
-    </div>
 
-    <div class="slide" id="slide-6">
-      <div class="content">
-        <h2 class="slide-title">The Challenge</h2>
-        <div class="info-card" style="border-left-color: var(--amber);">
-          Rapid hormone changes in the first trimester make emotional fluctuations <strong>completely normal</strong> and expected.
+        <div class="slide" id="s4">
+            <h2>Chapter 2: Challenges</h2>
+            <p style="margin:20px 0;">Focusing on the physical shifts in the first 12 weeks.</p>
+            <div style="font-size:80px;text-align:center;">🤮</div>
+            <button class="btn-main" onclick="showSlide(5)">Take Quiz</button>
         </div>
-        <button class="btn-next" onclick="goToSlide(0)">Back to Menu</button>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-7">
-      <div style="background:linear-gradient(160deg,#FFF7E6 0%,#FFF); height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px;">
-        <h2 class="slide-title">Chapter 3:<br>Misconceptions</h2>
-        <div style="font-size:70px; margin:20px;">💡</div>
-        <p class="slide-text">Separating fact from fiction for a healthy lifestyle.</p>
-        <button class="btn-next" onclick="goToSlide(8)">Start Chapter 3 →</button>
-      </div>
-    </div>
-
-    <div class="slide" id="slide-8">
-      <div class="content">
-        <h2 class="slide-title">True or False?</h2>
-        <div class="scenario-box">
-          A pregnant person must "eat for two," effectively <strong>doubling</strong> their calorie intake.
+        <div class="slide" id="s5">
+            <h2>Quiz 2</h2>
+            <div class="quiz-box">Are mood swings normal in Trimester 1?</div>
+            <button class="opt-btn" onclick="answer(true, 5)">Yes, very normal</button>
+            <button class="opt-btn" onclick="answer(false, 5)">No, it's rare</button>
+            <div id="f5" class="feedback"></div>
+            <button class="btn-main" id="n5" style="display:none;" onclick="showSlide(6)">Next Lesson</button>
         </div>
-        <div class="tf-row">
-          <button class="tf-btn" onclick="checkAnswer(false, 8, 'Chapter 3')">True</button>
-          <button class="tf-btn" onclick="checkAnswer(true, 8, 'Chapter 3')">False</button>
+        <div class="slide" id="s6">
+            <h2>Physical Tip</h2>
+            <p>Rest is not a luxury; it is a medical necessity during growth.</p>
+            <button class="btn-main" onclick="showSlide(0)">Back to Menu</button>
         </div>
-        <div id="fb-8" class="feedback-box"></div>
-        <button id="btn-8" class="btn-next" style="display:none;" onclick="goToSlide(9)">Continue →</button>
-      </div>
-    </div>
 
-    <div class="slide" id="slide-9">
-      <div class="content">
-        <h2 class="slide-title">Nutrition Fact</h2>
-        <div class="info-card" style="border-left-color: var(--pink);">
-          You only need about <strong>300-450 extra calories</strong> per day in the later stages, not double!
+        <div class="slide" id="s7">
+            <h2>Chapter 3: Myths</h2>
+            <p style="margin:20px 0;">Debunking common misconceptions about pregnancy.</p>
+            <div style="font-size:80px;text-align:center;">🥑</div>
+            <button class="btn-main" onclick="showSlide(8)">Take Quiz</button>
         </div>
-        <button class="btn-next" onclick="goToSlide(0)">Course Complete!</button>
-      </div>
+        <div class="slide" id="s8">
+            <h2>Quiz 3</h2>
+            <div class="quiz-box">Should you "eat for two"?</div>
+            <button class="opt-btn" onclick="answer(false, 8)">Yes, double the food</button>
+            <button class="opt-btn" onclick="answer(true, 8)">No, only 300 extra calories</button>
+            <div id="f8" class="feedback"></div>
+            <button class="btn-main" id="n8" style="display:none;" onclick="showSlide(9)">Finish Course</button>
+        </div>
+        <div class="slide" id="s9">
+            <h2 style="text-align:center;">Course Complete!</h2>
+            <p style="text-align:center;margin:30px 0;">You have mastered all 3 chapters.</p>
+            <div style="font-size:100px;text-align:center;">🎉</div>
+            <button class="btn-main" onclick="showSlide(0)">Start Over</button>
+        </div>
     </div>
-
-  </div>
 </div>
 
 <script>
-function goToSlide(n) {
+function showSlide(num) {
     // Hide all slides
     document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-    // Show selected slide
-    const target = document.getElementById('slide-' + n);
-    if(target) target.classList.add('active');
-    
-    // Update progress bar & label
-    const fill = document.getElementById('progressFill');
-    const label = document.getElementById('progressLabel');
-    
-    if(n === 0) {
-        fill.style.width = '0%';
-        label.innerText = "Course Dashboard";
-    } else {
-        const totalSlides = 9; 
-        fill.style.width = (n / totalSlides * 100) + '%';
-        label.innerText = "Learning Mode";
-    }
-    
-    // Reset any feedback boxes when leaving a slide
-    document.querySelectorAll('.feedback-box').forEach(f => f.style.display = 'none');
-    document.querySelectorAll('.btn-next').forEach(b => {
-        if(b.id.startsWith('btn-')) b.style.display = 'none';
-    });
+    // Show target slide
+    document.getElementById('s' + num).classList.add('active');
+    // Update Progress
+    document.getElementById('progress').style.width = (num / 9 * 100) + '%';
+    // Scroll to top
+    document.querySelector('.slides-wrapper').scrollTop = 0;
 }
 
-function checkAnswer(isCorrect, slideNum, chapterName) {
-    const fb = document.getElementById('fb-' + slideNum);
-    const btn = document.getElementById('btn-' + slideNum);
-    fb.style.display = 'block';
-    
+function answer(isCorrect, sId) {
+    const f = document.getElementById('f' + sId);
+    const n = document.getElementById('n' + sId);
+    f.style.display = "block";
     if(isCorrect) {
-        fb.innerHTML = "✅ <strong>Correct!</strong> You've clearly mastered " + chapterName + ".";
-        fb.style.background = "#E8FFF8";
-        fb.style.color = "#009E85";
-        fb.style.border = "2px solid #00C9A7";
+        f.innerHTML = "Correct! Well done.";
+        f.style.background = "#e8f5e9";
+        f.style.color = "#2e7d32";
     } else {
-        fb.innerHTML = "❌ <strong>Not quite.</strong> Even though it's a common belief, the reality is different!";
-        fb.style.background = "#FFF5F5";
-        fb.style.color = "#E74C3C";
-        fb.style.border = "2px solid #E74C3C";
+        f.innerHTML = "Not quite. Try the other one!";
+        f.style.background = "#ffebee";
+        f.style.color = "#c62828";
     }
-    btn.style.display = 'block';
+    n.style.display = "block";
 }
 </script>
-
 </body>
 </html>
